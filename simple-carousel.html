@@ -8,7 +8,16 @@
 </head>
 <body>
     <div id="app">
-        
+        <div class="container">
+            <div>
+                {{ images[show] }}
+            </div>
+        </div>
+        <div class="container">
+            <div>
+                {{ images[show].src }}
+            </div>
+        </div>
     </div>
     <script src="scripts/vue.js"></script>
     <script>
@@ -22,6 +31,10 @@
                 { src:'./images/sc/5.jpg' }
             ]
         }
+        let vm = new Vue({
+            el:'#app',
+            data:data,
+        })
     </script>
 </body>
 </html>
