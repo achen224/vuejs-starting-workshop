@@ -8,6 +8,8 @@
 </head>
 <body>
     <div id="app">
+        <button @click="show--">Prev</button>
+        <button @click="show++">Next</button>
         <div class="container">
             <div v-html="showImage">
                 {{ images[show] }}
