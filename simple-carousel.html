@@ -9,13 +9,13 @@
 <body>
     <div id="app">
         <div class="container">
-            <div>
+            <div v-html="showImage">
                 {{ images[show] }}
             </div>
         </div>
         <div class="container">
             <div>
-                {{ images[show].src }}
+                <img :src="images[show].src">
             </div>
         </div>
     </div>
@@ -34,6 +34,11 @@
         let vm = new Vue({
             el:'#app',
             data:data,
+            computed:{
+                showImage(){
+                    return `<img src="${this.images[this.show].src}">`
+                }
+            }
         })
     </script>
 </body>
