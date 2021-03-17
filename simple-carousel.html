@@ -8,8 +8,8 @@
 </head>
 <body>
     <div id="app">
-        <button @click="show--">Prev</button>
-        <button @click="show++">Next</button>
+        <button @click="change(show-1)">Prev</button>
+        <button @click="change(show+1)">Next</button>
         <div class="container">
             <div v-html="showImage">
                 {{ images[show] }}
@@ -39,6 +39,20 @@
             computed:{
                 showImage(){
                     return `<img src="${this.images[this.show].src}">`
+                },
+                total(){
+                    return this.images.length
+                }
+            },
+            methods:{
+                change(index){
+                    if(index<0){
+                        this.show = this.total-1
+                    }else if(index>this.total-1){
+                        this.show = 0
+                    }else{
+                        this.show = index
+                    }
                 }
             }
         })
