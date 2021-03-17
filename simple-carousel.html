@@ -10,14 +10,15 @@
     <div id="app">
         <button @click="change(show-1)">Prev</button>
         <button @click="change(show+1)">Next</button>
+        <button v-for="(num,index) of total" @click="change(index)">{{ num }}</button>
         <div class="container">
             <div v-html="showImage">
                 {{ images[show] }}
             </div>
         </div>
         <div class="container">
-            <div>
-                <img :src="images[show].src">
+            <div v-for="item of images">
+                <img :src="item.src">
             </div>
         </div>
     </div>
