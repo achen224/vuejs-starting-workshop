@@ -16,6 +16,15 @@
             width: 320px;
             height: 480px;
         }
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+        .fade-enter-to,.fade-leave{
+            opacity:1;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: opacity 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -24,15 +33,17 @@
         <button @click="change(show+1)">Next</button>
         <button v-for="(num,index) of total" @click="change(index)">{{ num }}</button>
         <div class="container">
-            <div v-html="showImage">
-                {{ images[show] }}
-            </div>
+            <transition name="fade">
+                <div v-html="showImage" :key="show">
+                    {{ images[show] }}
+                </div>
+            </transition>
         </div>
-        <div class="container">
-            <div v-for="(item,index) of images" v-show="index === show">
+        <transition-group  tag="div" class="container" name="fade">
+            <div v-for="(item,index) of images" v-show="index === show" :key="index">
                 <img :src="item.src">
             </div>
-        </div>
+        </transition-group>
     </div>
     <script src="scripts/vue.js"></script>
     <script>
