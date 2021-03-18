@@ -13,7 +13,10 @@
 </head>
 <body>
     <div id="app">
-        <div class="todo" v-for="item of todos">
+        <button @click="filter='all'">All</button>
+        <button @click="filter='active'">Active</button>
+        <button @click="filter='done'">Done</button>
+        <div class="todo" v-for="item of filterTodos">
             <div class="show" :class="{done:item.done}">
                 <input type="checkbox" v-model.trim="item.done">
                 <span>{{ item.content }}</span>
@@ -23,6 +26,7 @@
     <script src="scripts/vue.js"></script>
     <script>
         let data = {
+            filter:'all',
             todos:[
                 { id:1, content:'test1', done:false},
                 { id:2, content:'test2', done:true},
@@ -31,7 +35,21 @@
         }
         let vm = new Vue({
             el:'#app',
-            data
+            data,
+            computed:{
+                filterTodos(){
+                    switch(this.filter){
+                        case 'active':
+                        case 'done':
+                            let status = this.filter === 'done'
+                            return this.todos.filter((item)=>{
+                                return item.done === status
+                            })
+                        default:
+                            return this.todos
+                    }
+                }
+            },
         })   
     </script>
 </body>
