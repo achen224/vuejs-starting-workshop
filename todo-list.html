@@ -13,6 +13,8 @@
 </head>
 <body>
     <div id="app">
+        <input type="text" v-model.trim="input"><button @click="add">Add</button>
+        <br>
         <button @click="filter='all'">All</button>
         <button @click="filter='active'">Active</button>
         <button @click="filter='done'">Done</button>
@@ -31,7 +33,8 @@
                 { id:1, content:'test1', done:false},
                 { id:2, content:'test2', done:true},
                 { id:3, content:'test3', done:false},
-            ]
+            ],
+            input:''
         }
         let vm = new Vue({
             el:'#app',
@@ -50,6 +53,16 @@
                     }
                 }
             },
+            methods:{
+                add(){
+                    this.todos.push({
+                        id:new Date().getTime(),
+                        content:this.input,
+                        done:false
+                    })
+                    this.input = ''
+                }
+            }
         })   
     </script>
 </body>
