@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo List</title>
+    <style>
+        .todo > .done{
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        
+        <div class="todo" v-for="item of todos">
+            <div class="show" :class="{done:item.done}">
+                <span>{{ item.content }}</span>
+            </div>
+        </div>
     </div>
     <script src="scripts/vue.js"></script>
     <script>
@@ -19,6 +28,10 @@
                 { id:3, content:'test3', done:false},
             ]
         }
+        let vm = new Vue({
+            el:'#app',
+            data
+        })   
     </script>
 </body>
 </html>
