@@ -20,7 +20,7 @@
         <button @click="filter='done'">Done</button>
         <div class="todo" v-for="item of filterTodos">
             <div class="edit" v-if="editTodo && editTodo.id === item.id">
-                <input type="text" v-model="editTodo.content">
+                <input type="text" v-model="editTodo.content" v-focus>
                 <button @click="editDone">OK</button>
                 <button @click="editCancel">Cancel</button>
             </div>
@@ -43,6 +43,11 @@
             input:'',
             editTodo:null
         }
+        Vue.directive('focus',{
+            inserted(el){
+                el.focus()
+            }
+        })
         let vm = new Vue({
             el:'#app',
             data,
