@@ -22,6 +22,7 @@
             <div class="show" :class="{done:item.done}">
                 <input type="checkbox" v-model.trim="item.done">
                 <span>{{ item.content }}</span>
+                <button @click="remove(item.id)">Delete</button>
             </div>
         </div>
     </div>
@@ -61,7 +62,16 @@
                         done:false
                     })
                     this.input = ''
-                }
+                },
+                remove(id){
+                    let index = this.findIndexById(id)
+                    if(index > -1) this.todos.splice(index,1)
+                },
+                findIndexById(id){
+                    return this.todos.findIndex((item)=>{
+                        return item.id === id
+                    })
+                },
             }
         })   
     </script>
