@@ -19,9 +19,14 @@
         <button @click="filter='active'">Active</button>
         <button @click="filter='done'">Done</button>
         <div class="todo" v-for="item of filterTodos">
-            <div class="show" :class="{done:item.done}">
+            <div class="edit" v-if="editTodo && editTodo.id === item.id">
+                <input type="text" v-model="editTodo.content">
+                <button @click="editDone">OK</button>
+                <button @click="editCancel">Cancel</button>
+            </div>
+            <div class="show" :class="{done:item.done}" v-else>
                 <input type="checkbox" v-model.trim="item.done">
-                <span>{{ item.content }}</span>
+                <span @dblclick="edit(item.id)">{{ item.content }}</span>
                 <button @click="remove(item.id)">Delete</button>
             </div>
         </div>
@@ -35,7 +40,8 @@
                 { id:2, content:'test2', done:true},
                 { id:3, content:'test3', done:false},
             ],
-            input:''
+            input:'',
+            editTodo:null
         }
         let vm = new Vue({
             el:'#app',
@@ -52,6 +58,10 @@
                         default:
                             return this.todos
                     }
+                },
+                editTarget(){
+                    let index = this.findIndexById(this.editTodo.id)
+                    return this.editTodo && index !== -1 ? this.todos[index] : null
                 }
             },
             methods:{
@@ -71,6 +81,20 @@
                     return this.todos.findIndex((item)=>{
                         return item.id === id
                     })
+                },
+                edit(id){
+                    this.editTodo = {
+                        id,
+                        content:''
+                    }
+                    this.editTodo.content = this.editTarget.content
+                },
+                editDone(){
+                    this.editTarget.content = this.editTodo.content
+                    this.editCancel()
+                },
+                editCancel(){
+                    this.editTodo = null
                 },
             }
         })   
