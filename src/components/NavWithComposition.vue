@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-hotkey="keyMap">
     <button @click="CHANGE_SHOW(show-1)">←</button>
     <button v-for="num in total" :key="num-1" @click="CHANGE_SHOW(num-1)">{{ num }}</button>
     <button @click="CHANGE_SHOW(show+1)">→</button>
@@ -8,13 +8,19 @@
 
 <script>
 import useNav from '@/utils/NavComposition'
+import { computed } from '@vue/composition-api'
 export default {
   setup() {
-    let { show, total, CHANGE_SHOW } = useNav()
+    const { show, total, CHANGE_SHOW } = useNav()
+    const keyMap = computed(() => ({
+      left: () => CHANGE_SHOW(show.value - 1),
+      right: () => CHANGE_SHOW(show.value + 1),
+    }))
     return {
       show,
       total,
-      CHANGE_SHOW
+      CHANGE_SHOW,
+      keyMap,
     }
   },
 }

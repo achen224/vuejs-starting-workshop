@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button @click="$emit('change',show-1)">←</button>
+    <button @click="$emit('change',show-1)" v-tooltip.auto="'Prev'">←</button>
     <button v-for="num in total" :key="num-1" @click="$emit('change',num-1)">{{ num }}</button>
-    <button @click="$emit('change',show+1)">→</button>
+    <button @click="$emit('change',show+1)" v-tooltip.auto="'Next'">→</button>
   </div>
 </template>
 
